@@ -16,7 +16,7 @@ def get_user(params, request):
     :return:
     """
     try:
-        user = User.objects.get(username=params['username'], is_deleted=False, is_active=True)
+        user = User.objects.get(username=params['username'], is_active=True)
         return user
     except Exception as ex:
         raise APIException(str(ex))
@@ -30,12 +30,10 @@ def user_login(params, request):
     :return:
     """
     user = get_user(params, request)
-    if user.is_email_verified or user.is_phone_verified:
-        auth = (settings.OAUTH_CLIENT_ID, settings.OAUTH_CLIENT_SECRET)
-        login_data = {'username': user.username, 'password': params['password'], 'grant_type': 'password'}
-        response = requests.post(settings.BASE_URL + '/o/token/', data=login_data, auth=auth)
-        return response
-    raise APIException("User is not verified")
+    auth = (settings.OAUTH_CLIENT_ID, settings.OAUTH_CLIENT_SECRET)
+    login_data = {'username': user.username, 'password': params['password'], 'grant_type': 'password'}
+    response = requests.post(settings.BASE_URL + '/o/token/', data=login_data, auth=auth)
+    return response
 
 
 def user_logout(request):

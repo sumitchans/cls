@@ -15,13 +15,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     dob = models.CharField(max_length=50)
     age = models.CharField(max_length=20)
     username = models.CharField(max_length=255, unique=True)
-    is_email_verified = models.BooleanField(default=False)
-    is_phone_verified = models.BooleanField(default=False)
+    is_email_verified = models.BooleanField(default=True)
+    is_phone_verified = models.BooleanField(default=True)
     gender = models.CharField(choices=GENDER, max_length=255)
     email = models.EmailField(blank=True, null=True)
     phone = models.CharField(blank=True, max_length=20, null=True)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     country = models.CharField(max_length=255)
     study_grd = models.CharField(max_length=50)
@@ -41,6 +41,9 @@ class Class(models.Model):
     type = models.CharField(max_length=50)
     duration = models.IntegerField()
     question = models.TextField()
+
+    def __str__(self):
+        return self.name
 
 
 class UserClass(models.Model):

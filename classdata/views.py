@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.exceptions import APIException
 
 from .serializers import *
+from .utils import *
 
 
 class UserRegisterView(APIView):

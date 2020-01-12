@@ -1,8 +1,8 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import *
+from .models import UserClass, User, Class
 
-admin.register(User)
-admin.register(Class)
-admin.register(UserClass)
+admin.site.register(User)
+admin.site.register(Class)
+admin.site.register(UserClass)
