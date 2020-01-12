@@ -1,18 +1,19 @@
+import datetime
+
 from django.contrib.auth.models import AbstractBaseUser, UserManager, PermissionsMixin
 from django.contrib.auth import get_user_model
 from django.db import models
 
 from .constant import *
 from .validators import *
-from .utils import *
 
 
 class User(AbstractBaseUser, PermissionsMixin):
     """User model"""
     first_name = models.CharField(max_length=255, validators=[CharFieldValidator(), ])
     last_name = models.CharField(max_length=255, blank=True, null=True, validators=[CharFieldValidator(), ])
-    dob = models.DateField()
-    age = models.CharField(max_length=20, default=calculate_age(dob))
+    dob = models.CharField(max_length=50)
+    age = models.CharField(max_length=20)
     username = models.CharField(max_length=255, unique=True)
     is_email_verified = models.BooleanField(default=False)
     is_phone_verified = models.BooleanField(default=False)
@@ -27,7 +28,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     study_board = models.CharField(max_length=50)
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['username', 'email', 'phone', 'dob', 'gender', 'country']
+    REQUIRED_FIELDS = ['email', 'phone', 'dob', 'gender', 'country']
 
     objects = UserManager()
 
@@ -43,6 +44,6 @@ class Class(models.Model):
 
 
 class UserClass(models.Model):
-    user_id = models.ForeignKey(get_user_model(), related_name='student')
-    class_id = models.ForeignKey(Class)
+    user_id = models.ForeignKey(get_user_model(), related_name='student', on_delete=models.DO_NOTHING)
+    class_id = models.ForeignKey(Class, on_delete=models.DO_NOTHING)
 

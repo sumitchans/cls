@@ -4,14 +4,8 @@ import requests
 from django.conf import settings
 from rest_framework.exceptions import APIException
 
-
 from .models import UserClass, User
 from .serializers import *
-
-
-def calculate_age(born):
-    today = datetime.date.today()
-    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
 
 def get_user(params, request):

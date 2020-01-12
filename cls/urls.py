@@ -19,6 +19,6 @@ from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('user/', include('account.urls')),
+    path('user/', include('classdata.urls')),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 ]

@@ -5,4 +5,4 @@ from .models import *
 
 admin.register(User)
 admin.register(Class)
-admin(UserClass)
+admin.register(UserClass)
